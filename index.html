@@ -1,0 +1,1684 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>금융을 쉽게 | 쉬운 금융 상담</title>
+
+<style>
+:root{
+  --blue:#397feb;
+  --deep:#2052a0;
+  --navy:#243b5a;
+  --sky:#eaf4ff;
+  --bg:#f6faff;
+  --white:#ffffff;
+  --line:#dce8f7;
+  --muted:#7488a3;
+  --green:#168967;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--navy);
+  font-family:
+    "Malgun Gothic",
+    "Apple SD Gothic Neo",
+    Arial,sans-serif;
+  font-size:17px;
+  line-height:1.65;
+}
+
+button,textarea,input{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+button:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+}
+
+button:focus-visible,
+textarea:focus-visible,
+input:focus-visible{
+  outline:3px solid #87b4ff;
+  outline-offset:3px;
+}
+
+.hidden{
+  display:none!important;
+}
+
+.screen{
+  display:none;
+}
+
+.screen.active{
+  display:block;
+}
+
+.container{
+  width:min(1050px,94%);
+  margin:auto;
+}
+
+.card{
+  background:white;
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:25px;
+  box-shadow:0 8px 28px #4175b00d;
+  margin-bottom:20px;
+}
+
+h1,h2,h3,p{
+  overflow-wrap:anywhere;
+}
+
+h2{
+  font-size:24px;
+  margin:0 0 15px;
+}
+
+h3{
+  font-size:20px;
+}
+
+.muted{
+  color:var(--muted);
+  font-size:15px;
+}
+
+.btn{
+  background:var(--blue);
+  border:0;
+  border-radius:15px;
+  padding:15px 23px;
+  color:white;
+  font-weight:800;
+  font-size:17px;
+  transition:transform .15s,background .15s;
+}
+
+.btn:hover:not(:disabled){
+  background:#276bd0;
+}
+
+.btn:active:not(:disabled){
+  transform:scale(.97);
+}
+
+.btn-light{
+  background:var(--sky);
+  color:var(--deep);
+}
+
+.btn-light:hover:not(:disabled){
+  background:#dbeaff;
+}
+
+.btn-small{
+  padding:10px 13px;
+  font-size:14px;
+}
+
+.full{
+  width:100%;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+
+.row{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+/* 홈 화면 */
+
+#home{
+  min-height:100vh;
+  background:
+    radial-gradient(
+      circle at 50% 25%,
+      #d8ebff,
+      #f6faff 72%
+    );
+}
+
+.home-content{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:35px 20px;
+  text-align:center;
+}
+
+.home-icon{
+  width:130px;
+  height:130px;
+  display:grid;
+  place-items:center;
+  background:white;
+  border-radius:35px;
+  font-size:75px;
+  box-shadow:0 15px 40px #69a0da30;
+}
+
+.home-content h1{
+  font-size:clamp(38px,7vw,59px);
+  color:var(--deep);
+  margin:22px 0 10px;
+  letter-spacing:-1px;
+}
+
+.home-content p{
+  color:#728caf;
+  line-height:1.9;
+  font-size:18px;
+}
+
+.home-content .btn{
+  margin-top:20px;
+  font-size:20px;
+  padding:19px 44px;
+}
+
+.home-tags{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:30px;
+}
+
+.home-tags span{
+  background:white;
+  padding:12px 16px;
+  border:1px solid var(--line);
+  border-radius:25px;
+  color:var(--deep);
+  font-size:14px;
+}
+
+/* 헤더 */
+
+header{
+  background:white;
+  border-bottom:1px solid var(--line);
+}
+
+.header-inner{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  padding:16px 0;
+}
+
+.logo{
+  font-size:22px;
+  color:var(--deep);
+  font-weight:900;
+}
+
+main{
+  padding:25px 0 60px;
+}
+
+nav{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:22px;
+}
+
+nav button{
+  flex:1;
+  min-width:120px;
+}
+
+nav .selected{
+  background:var(--blue);
+  color:white;
+}
+
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
+
+/* 상담 화면 */
+
+.chat-card{
+  padding:0;
+  overflow:hidden;
+}
+
+.chat-header{
+  background:linear-gradient(
+    120deg,
+    #347ce8,
+    #72b2ff
+  );
+  color:white;
+  padding:23px;
+}
+
+.chat-header h2{
+  margin:0 0 7px;
+  color:white;
+}
+
+.chat-header p{
+  margin:0;
+  font-size:15px;
+  color:#eff7ff;
+}
+
+.chat-messages{
+  height:min(58vh,550px);
+  min-height:360px;
+  overflow-y:auto;
+  padding:23px;
+  background:#fcfdff;
+}
+
+.message-row{
+  display:flex;
+  margin:13px 0;
+  align-items:flex-start;
+  gap:10px;
+}
+
+.message-row.user{
+  justify-content:flex-end;
+}
+
+.avatar{
+  width:40px;
+  height:40px;
+  flex-shrink:0;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  background:#e1efff;
+  font-size:22px;
+}
+
+.message{
+  max-width:min(85%,660px);
+  background:#eaf3ff;
+  padding:16px 19px;
+  border-radius:18px;
+  line-height:1.85;
+  font-size:16px;
+  overflow-wrap:anywhere;
+  white-space:pre-wrap;
+}
+
+.message-row.user .message{
+  background:var(--blue);
+  color:white;
+  border-radius:18px 18px 5px 18px;
+}
+
+.message-row.bot .message{
+  border-radius:5px 18px 18px 18px;
+}
+
+.message strong{
+  color:var(--deep);
+}
+
+.message-title{
+  font-size:17px;
+  font-weight:900;
+  margin-bottom:10px;
+  color:var(--deep);
+}
+
+.message-section{
+  margin:11px 0;
+}
+
+.chat-footer{
+  padding:18px;
+  border-top:1px solid var(--line);
+  background:white;
+}
+
+textarea{
+  resize:vertical;
+  width:100%;
+  min-height:100px;
+  max-height:260px;
+  padding:16px;
+  border:2px solid var(--line);
+  border-radius:15px;
+  color:var(--navy);
+  background:#fbfdff;
+}
+
+textarea:focus{
+  outline:none;
+  border-color:var(--blue);
+}
+
+.chat-actions{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-top:12px;
+}
+
+.suggestions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  margin-bottom:15px;
+}
+
+.suggestion{
+  background:white;
+  border:1px solid #bfd8f8;
+  color:var(--deep);
+  padding:11px 14px;
+  font-size:14px;
+  border-radius:22px;
+  font-weight:700;
+}
+
+.suggestion:hover{
+  background:var(--sky);
+}
+
+.status{
+  padding:13px 16px;
+  background:#eaf8f1;
+  color:#287e5b;
+  border-radius:13px;
+  font-size:14px;
+}
+
+/* 금융 주제 */
+
+.topic-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+}
+
+.topic-card{
+  border:2px solid var(--line);
+  background:white;
+  border-radius:18px;
+  padding:22px 15px;
+  text-align:left;
+  color:var(--navy);
+  transition:background .15s,transform .15s;
+}
+
+.topic-card:hover{
+  background:#edf5ff;
+  transform:translateY(-3px);
+}
+
+.topic-icon{
+  font-size:38px;
+  margin-bottom:10px;
+}
+
+.topic-card strong{
+  display:block;
+  font-size:18px;
+  color:var(--deep);
+}
+
+.topic-card p{
+  font-size:14px;
+  color:var(--muted);
+  line-height:1.6;
+  margin-bottom:0;
+}
+
+/* 계산기 */
+
+label{
+  display:block;
+  font-weight:800;
+  font-size:15px;
+  margin:16px 0 8px;
+}
+
+input{
+  width:100%;
+  border:2px solid var(--line);
+  background:#fcfdff;
+  border-radius:12px;
+  padding:15px;
+  color:var(--navy);
+}
+
+input:focus{
+  outline:none;
+  border-color:var(--blue);
+}
+
+.result-box{
+  margin-top:20px;
+  padding:22px;
+  background:#eaf4ff;
+  border-radius:18px;
+}
+
+.result-number{
+  font-size:clamp(26px,5vw,39px);
+  color:var(--deep);
+  font-weight:900;
+  margin:10px 0;
+}
+
+.progress{
+  height:15px;
+  background:#dceafa;
+  border-radius:30px;
+  overflow:hidden;
+  margin:13px 0;
+}
+
+.progress-fill{
+  width:0;
+  height:100%;
+  background:var(--blue);
+  transition:width .5s;
+}
+
+/* 알림 */
+
+.toast{
+  position:fixed;
+  z-index:100;
+  bottom:25px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#20549b;
+  color:white;
+  padding:14px 20px;
+  border-radius:28px;
+  max-width:90%;
+  text-align:center;
+  font-size:15px;
+}
+
+footer{
+  text-align:center;
+  padding:25px;
+  font-size:13px;
+  color:#91a9c6;
+  line-height:1.8;
+}
+
+@media(max-width:750px){
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .topic-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  .card{
+    padding:18px;
+  }
+
+  .chat-card{
+    padding:0;
+  }
+
+  .chat-messages{
+    padding:15px;
+    height:52vh;
+  }
+
+  .message{
+    max-width:90%;
+    font-size:15px;
+    padding:14px;
+  }
+
+  .chat-actions{
+    align-items:stretch;
+  }
+
+  .chat-actions .btn{
+    min-width:105px;
+  }
+
+  .home-icon{
+    width:105px;
+    height:105px;
+    font-size:60px;
+  }
+}
+
+@media(max-width:420px){
+  .topic-grid{
+    gap:9px;
+  }
+
+  .topic-card{
+    padding:16px 12px;
+  }
+
+  .topic-card strong{
+    font-size:16px;
+  }
+
+  nav button{
+    min-width:90px;
+    font-size:14px;
+    padding:12px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms!important;
+    transition-duration:.01ms!important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 홈 화면 -->
+
+<section id="home" class="screen active">
+  <div class="home-content">
+
+    <div class="home-icon">💙💬</div>
+
+    <h1>금융을 쉽게</h1>
+
+    <p>
+      어려운 금융 용어, 이제 걱정하지 마세요!<br>
+      궁금한 내용을 질문하면<br>
+      누구나 이해하기 쉽게 설명해 드려요.
+    </p>
+
+    <button class="btn" id="startBtn">
+      💬 금융 상담 시작하기
+    </button>
+
+    <div class="home-tags">
+      <span>💰 저축 상담</span>
+      <span>🛍️ 소비 관리</span>
+      <span>💳 신용·대출</span>
+      <span>🛡️ 보험·투자</span>
+    </div>
+
+    <p class="muted">
+      외부 AI 연결 없이 실행되는 금융 상담 학습 서비스입니다.
+    </p>
+
+  </div>
+</section>
+
+<!-- 앱 화면 -->
+
+<section id="app" class="screen">
+
+  <header>
+    <div class="container header-inner">
+      <div class="logo">💙 금융을 쉽게</div>
+
+      <button class="btn btn-light btn-small" id="homeBtn">
+        홈으로
+      </button>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <nav>
+      <button class="btn btn-light selected" data-page="chatPage">
+        💬 금융 상담
+      </button>
+
+      <button class="btn btn-light" data-page="topicsPage">
+        📚 금융 공부
+      </button>
+
+      <button class="btn btn-light" data-page="calculatorPage">
+        🧮 저축 계산
+      </button>
+    </nav>
+
+    <!-- 금융 상담 -->
+
+    <div id="chatPage" class="page active">
+
+      <div class="card">
+        <h2>💬 무엇이 궁금하세요?</h2>
+
+        <p class="muted">
+          어려운 용어를 몰라도 괜찮아요.
+          고민을 평소 말하듯 편하게 적어 주세요.
+        </p>
+
+        <div class="suggestions" id="suggestions">
+          <button class="suggestion" data-question="용돈을 어떻게 저축하면 좋을까요?">
+            💰 용돈 저축
+          </button>
+
+          <button class="suggestion" data-question="충동구매를 줄이는 방법을 알려주세요.">
+            🛍️ 충동구매
+          </button>
+
+          <button class="suggestion" data-question="신용점수는 무엇인가요?">
+            💳 신용점수
+          </button>
+
+          <button class="suggestion" data-question="대출 이자가 무엇인지 쉽게 설명해 주세요.">
+            🏦 대출 이자
+          </button>
+
+          <button class="suggestion" data-question="실손보험과 건강보험의 차이가 궁금해요.">
+            🛡️ 보험
+          </button>
+
+          <button class="suggestion" data-question="주식 투자에서 분산투자는 왜 중요한가요?">
+            📈 투자
+          </button>
+        </div>
+      </div>
+
+      <section class="card chat-card">
+
+        <div class="chat-header">
+          <h2>💙 쉬운 금융 상담소</h2>
+          <p>어렵게 설명하지 않을게요. 함께 하나씩 알아봐요!</p>
+        </div>
+
+        <div class="chat-messages" id="chatMessages"
+             role="log" aria-label="금융 상담 대화"
+             aria-live="polite"></div>
+
+        <div class="chat-footer">
+
+          <label for="questionInput">나의 금융 질문</label>
+
+          <textarea id="questionInput" maxlength="500"
+            placeholder="예: 용돈이 매달 5만 원인데 저축을 잘 못하겠어요. 어떻게 해야 하나요?"></textarea>
+
+          <div class="chat-actions">
+            <button class="btn btn-light btn-small" id="clearChatBtn">
+              대화 지우기
+            </button>
+
+            <button class="btn" id="sendBtn">
+              질문 보내기 →
+            </button>
+          </div>
+
+          <p class="muted">
+            Ctrl+Enter로 질문을 보낼 수 있어요.
+            실제 금융 전문가의 개별 상담이나 생성형 AI 응답은 아닙니다.
+          </p>
+
+        </div>
+
+      </section>
+
+      <div class="status">
+        🔒 질문은 이 브라우저 안에서만 처리됩니다.
+        질문을 외부 서버로 전송하지 않아요.
+      </div>
+
+    </div>
+
+    <!-- 금융 공부 -->
+
+    <div id="topicsPage" class="page">
+
+      <section class="card">
+        <h2>📚 쉬운 금융 공부</h2>
+
+        <p class="muted">
+          궁금한 주제를 누르면 상담 화면에서
+          자세한 설명을 볼 수 있어요.
+        </p>
+
+        <div class="topic-grid" id="topicGrid"></div>
+      </section>
+
+    </div>
+
+    <!-- 저축 계산기 -->
+
+    <div id="calculatorPage" class="page">
+
+      <section class="card">
+
+        <h2>🧮 나의 저축 목표 계산기</h2>
+
+        <p class="muted">
+          매달 얼마를 저축해야 목표 금액을
+          달성할 수 있을지 계산해 보세요.
+        </p>
+
+        <div class="grid">
+          <div>
+            <label for="goalAmount">목표 저축 금액 (원)</label>
+            <input type="number" id="goalAmount"
+                   min="1" step="1"
+                   placeholder="예: 1000000">
+          </div>
+
+          <div>
+            <label for="currentAmount">이미 모은 돈 (원)</label>
+            <input type="number" id="currentAmount"
+                   min="0" step="1"
+                   placeholder="예: 200000">
+          </div>
+
+          <div>
+            <label for="months">저축 기간 (개월)</label>
+            <input type="number" id="months"
+                   min="1" max="600" step="1"
+                   placeholder="예: 12">
+          </div>
+
+          <div>
+            <label for="monthlyIncome">한 달 용돈 또는 수입 (원)</label>
+            <input type="number" id="monthlyIncome"
+                   min="0" step="1"
+                   placeholder="예: 100000">
+          </div>
+        </div>
+
+        <button class="btn full" id="calculateBtn"
+                style="margin-top:23px">
+          목표 저축액 계산하기
+        </button>
+
+        <div class="result-box hidden" id="calculationResult">
+          <p>매달 필요한 저축 금액</p>
+
+          <div class="result-number" id="requiredSaving">0원</div>
+
+          <div class="progress">
+            <div class="progress-fill" id="savingFill"></div>
+          </div>
+
+          <p id="calculationAdvice"></p>
+        </div>
+
+        <p class="muted">
+          이 계산기는 이자나 물가 상승을 제외한
+          단순 저축 계획 계산기입니다.
+        </p>
+
+      </section>
+
+    </div>
+
+  </main>
+
+  <footer>
+    💙 금융을 쉽게<br>
+    금융 초보자를 위한 교육용 상담 시뮬레이터<br>
+    실제 투자·대출·보험 가입 판단 전에는
+    공식 기관이나 전문가의 정보를 확인하세요.
+  </footer>
+
+</section>
+
+<div id="toast" class="toast hidden"
+     role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+
+/* ============================
+   1. 기본 설정
+============================ */
+
+const $ = id => document.getElementById(id);
+
+const HISTORY_KEY = "easy-finance-chat-v1";
+
+let toastTimer = null;
+
+function money(n){
+  return Math.round(n).toLocaleString("ko-KR")+"원";
+}
+
+function toast(message){
+  $("toast").textContent = message;
+  $("toast").classList.remove("hidden");
+
+  clearTimeout(toastTimer);
+
+  toastTimer = setTimeout(()=>{
+    $("toast").classList.add("hidden");
+  },2700);
+}
+
+function showScreen(id){
+  document.querySelectorAll(".screen").forEach(screen=>{
+    screen.classList.toggle(
+      "active",
+      screen.id === id
+    );
+  });
+
+  window.scrollTo(0,0);
+}
+
+function showPage(id){
+  document.querySelectorAll(".page").forEach(page=>{
+    page.classList.toggle(
+      "active",
+      page.id === id
+    );
+  });
+
+  document.querySelectorAll("[data-page]").forEach(button=>{
+    button.classList.toggle(
+      "selected",
+      button.dataset.page === id
+    );
+  });
+
+  window.scrollTo(0,0);
+}
+
+/* ============================
+   2. 화면 이동
+============================ */
+
+$("startBtn").onclick = ()=>{
+  showScreen("app");
+  showPage("chatPage");
+};
+
+$("homeBtn").onclick = ()=>{
+  showScreen("home");
+};
+
+document.querySelectorAll("[data-page]").forEach(button=>{
+  button.onclick = ()=>{
+    showPage(button.dataset.page);
+  };
+});
+
+/* ============================
+   3. 금융 지식 데이터
+============================ */
+
+// 오프라인 규칙 기반 금융 상담 엔진
+// 외부 API나 생성형 AI 모델을 사용하지 않습니다.
+
+const KNOWLEDGE = [
+
+  {
+    id:"saving",
+    title:"💰 저축을 쉽게 시작하는 방법",
+    keywords:[
+      "저축","저금","적금","돈 모으","돈을 모으",
+      "용돈","목돈","모으는 법"
+    ],
+    explanation:
+      "저축은 지금 쓰지 않는 돈을 미래의 목표를 위해 모아 두는 것이에요.\n\n"+
+      "예를 들어 매달 용돈 5만 원을 받는다면, "+
+      "처음부터 5만 원 전부를 자유롭게 쓰기보다 "+
+      "저축할 금액을 먼저 정하는 것이 도움이 돼요.",
+    steps:[
+      "한 달 동안 받는 돈을 확인해 보세요.",
+      "처음에는 부담 없는 금액부터 저축해 보세요.",
+      "돈을 받는 날 저축할 금액을 먼저 구분해 보세요.",
+      "저축 목표와 달성률을 매달 확인해 보세요."
+    ],
+    example:
+      "매달 10,000원씩 12개월 저축하면 "+
+      "이자를 제외하고 120,000원이 모여요.",
+    question:
+      "매달 받는 용돈이나 수입이 얼마인지 알려주면 "+
+      "함께 저축 계획을 생각해 볼 수 있어요."
+  },
+
+  {
+    id:"spending",
+    title:"🛍️ 충동구매와 소비 습관",
+    keywords:[
+      "충동구매","과소비","낭비","지출","소비",
+      "쇼핑","물건","구매","돈을 너무","돈이 부족",
+      "돈을 자꾸"
+    ],
+    explanation:
+      "충동구매는 꼭 필요한지 충분히 생각하지 않고 "+
+      "순간적인 감정으로 물건을 사는 행동이에요.\n\n"+
+      "작은 소비도 반복되면 큰돈이 될 수 있어요. "+
+      "중요한 것은 무조건 돈을 쓰지 않는 것이 아니라 "+
+      "필요한 소비와 원하는 소비를 구분하는 거예요.",
+    steps:[
+      "물건을 사기 전에 꼭 필요한지 생각해 보세요.",
+      "비싼 물건은 하루 정도 구매를 미뤄 보세요.",
+      "한 달 소비 한도를 먼저 정해 보세요.",
+      "자주 하는 작은 지출을 가계부에 기록해 보세요."
+    ],
+    example:
+      "하루에 간식값 3,000원을 20번 쓰면 "+
+      "한 달에 60,000원이 지출돼요.",
+    question:
+      "어떤 물건이나 활동에 돈을 가장 많이 쓰는지 "+
+      "말해 주면 줄일 방법을 함께 살펴볼게요."
+  },
+
+  {
+    id:"budget",
+    title:"📊 예산과 가계부 관리",
+    keywords:[
+      "예산","가계부","생활비","한달 계획",
+      "한 달 계획","돈 관리","수입과 지출",
+      "용돈 관리","예산 관리"
+    ],
+    explanation:
+      "예산은 앞으로 들어올 돈과 쓸 돈을 "+
+      "미리 계획하는 것이에요.\n\n"+
+      "예산을 세우면 꼭 필요한 지출과 "+
+      "줄일 수 있는 지출을 쉽게 구분할 수 있어요.",
+    steps:[
+      "한 달 수입을 먼저 적어 보세요.",
+      "교통비나 식비 등 필요한 지출을 계산해 보세요.",
+      "남는 돈에서 저축할 금액을 정해 보세요.",
+      "한 달이 끝나면 계획과 실제 지출을 비교하세요."
+    ],
+    example:
+      "월수입 100,000원에서 필수 지출 40,000원, "+
+      "저축 30,000원을 정하면 선택적으로 쓸 수 있는 돈은 30,000원이에요.",
+    question:
+      "한 달 수입과 가장 많이 지출하는 항목을 알려주세요."
+  },
+
+  {
+    id:"credit",
+    title:"💳 신용점수란 무엇일까요?",
+    keywords:[
+      "신용점수","신용등급","신용","연체",
+      "체크카드","신용카드"
+    ],
+    explanation:
+      "신용은 돈을 빌렸을 때 약속대로 "+
+      "갚을 수 있는지를 평가하는 데 쓰이는 개념이에요.\n\n"+
+      "신용점수는 대출이나 신용 거래의 조건을 "+
+      "판단할 때 활용될 수 있어요. "+
+      "점수가 높더라도 반드시 대출을 받을 수 있는 것은 아니에요.",
+    steps:[
+      "대출이나 카드 결제대금의 납부일을 지키세요.",
+      "감당하기 어려운 빚을 만들지 마세요.",
+      "카드 이용 내역을 정기적으로 확인하세요.",
+      "본인의 신용정보를 공식 경로로 확인해 보세요."
+    ],
+    example:
+      "신용카드 결제대금을 제때 납부하지 못하면 "+
+      "연체 이자가 발생하거나 신용에 불리한 영향을 줄 수 있어요.",
+    question:
+      "신용카드와 체크카드의 차이도 궁금한가요?"
+  },
+
+  {
+    id:"loan",
+    title:"🏦 대출과 이자 쉽게 이해하기",
+    keywords:[
+      "대출","돈 빌리","빌린 돈","이자",
+      "금리","원리금","상환","할부"
+    ],
+    explanation:
+      "대출은 금융기관 등에서 돈을 빌리고 "+
+      "정해진 조건에 따라 갚는 것이에요.\n\n"+
+      "이자는 돈을 빌리는 대가로 내는 비용이에요. "+
+      "금리가 높거나 상환 기간이 길면 "+
+      "전체 부담이 커질 수 있어요.",
+    steps:[
+      "정말 돈을 빌려야 하는 상황인지 확인하세요.",
+      "이자율뿐 아니라 전체 상환 금액을 살펴보세요.",
+      "매달 갚을 수 있는 금액을 계산하세요.",
+      "연체 이자와 중도상환수수료 등 조건을 확인하세요."
+    ],
+    example:
+      "100만 원을 연 5% 단리로 1년간 빌리고 "+
+      "원금을 만기에 갚는다고 가정하면 "+
+      "1년 이자는 50,000원이에요. "+
+      "실제 대출은 상환 방식과 조건에 따라 달라져요.",
+    question:
+      "대출 금액이나 이자율이 궁금하면 구체적인 숫자를 적어 주세요."
+  },
+
+  {
+    id:"insurance",
+    title:"🛡️ 보험의 기본 개념",
+    keywords:[
+      "보험","실손","실비","건강보험",
+      "생명보험","자동차보험","보험료","보장"
+    ],
+    explanation:
+      "보험은 예상하지 못한 사고나 질병 등으로 "+
+      "큰 비용이 생겼을 때를 대비하는 방법이에요.\n\n"+
+      "사회보험은 공적 제도를 통한 기본 보장이고 "+
+      "민영보험은 가입자가 상품과 약관에 따라 "+
+      "추가 보장을 준비하는 방식이에요.",
+    steps:[
+      "어떤 위험을 보장하는 보험인지 확인하세요.",
+      "보험료를 계속 낼 수 있는지 살펴보세요.",
+      "자기부담금과 보장 제외 항목을 확인하세요.",
+      "이미 가입한 보험과 보장이 겹치는지 비교하세요."
+    ],
+    example:
+      "실손의료보험은 약관에서 정한 실제 의료비 손해를 "+
+      "보전하는 보험이에요. 모든 의료비를 전액 돌려주는 것은 아니에요.",
+    question:
+      "건강보험, 실손보험, 생명보험 중 어떤 보험이 궁금한가요?"
+  },
+
+  {
+    id:"investing",
+    title:"📈 투자를 시작하기 전에",
+    keywords:[
+      "투자","주식","펀드","ETF","코인",
+      "가상자산","배당","분산투자","손절"
+    ],
+    explanation:
+      "투자는 돈을 불리기 위해 자산에 자금을 넣는 행동이에요.\n\n"+
+      "저축과 달리 투자 자산의 가격은 오르거나 "+
+      "내릴 수 있고 원금 손실이 발생할 수 있어요. "+
+      "수익을 기대하기 전에 위험을 이해하는 것이 중요해요.",
+    steps:[
+      "먼저 생활비와 비상금을 준비하세요.",
+      "투자하려는 상품이 무엇인지 공부하세요.",
+      "한 가지 자산에 돈을 모두 넣지 마세요.",
+      "단기간에 큰 수익을 보장한다는 말은 의심하세요."
+    ],
+    example:
+      "10만 원을 투자한 자산 가격이 20% 하락하면 "+
+      "평가 금액은 8만 원이 돼요. "+
+      "이후 원금을 회복하려면 25% 상승해야 해요.",
+    question:
+      "주식과 예금의 차이부터 알아볼까요?"
+  },
+
+  {
+    id:"scam",
+    title:"🚨 금융사기와 개인정보 보호",
+    keywords:[
+      "사기","보이스피싱","스미싱",
+      "피싱","계좌번호","비밀번호","인증번호",
+      "송금","사기당","개인정보"
+    ],
+    explanation:
+      "금융사기는 거짓말이나 속임수로 돈이나 "+
+      "금융정보를 빼앗는 범죄예요.\n\n"+
+      "금융기관이나 공공기관을 사칭하는 문자와 전화에도 "+
+      "주의해야 해요.",
+    steps:[
+      "비밀번호나 인증번호를 다른 사람에게 알려주지 마세요.",
+      "수상한 문자 속 링크는 누르지 마세요.",
+      "돈을 보내라는 요구는 공식 연락처로 다시 확인하세요.",
+      "이미 피해가 발생했다면 은행과 경찰 등 관련 기관에 즉시 신고하고 지급정지 등 필요한 조치를 문의하세요."
+    ],
+    example:
+      "'지금 송금하면 원금을 두 배로 돌려준다'는 "+
+      "식의 제안은 금융사기 가능성을 의심해야 해요.",
+    question:
+      "수상한 문자나 전화를 받았나요? "+
+      "개인정보는 빼고 상황만 설명해 주세요."
+  },
+
+  {
+    id:"deposit",
+    title:"🏧 예금과 적금의 차이",
+    keywords:[
+      "예금","정기예금","정기적금",
+      "예금자보호","통장"
+    ],
+    explanation:
+      "예금은 은행 등에 돈을 맡기는 것이고, "+
+      "적금은 보통 일정 기간 동안 돈을 여러 번 납입하는 상품이에요.\n\n"+
+      "목돈이 이미 있다면 예금을, "+
+      "매달 조금씩 모으고 싶다면 적금을 "+
+      "검토할 수 있어요.",
+    steps:[
+      "목돈을 맡길지 매달 모을지 정하세요.",
+      "금리와 만기 기간을 비교하세요.",
+      "중도해지 시 적용되는 이자 조건을 확인하세요.",
+      "예금자보호 대상 여부와 한도를 확인하세요."
+    ],
+    example:
+      "매달 20,000원씩 6개월간 납입하면 "+
+      "원금은 120,000원이에요. "+
+      "이자는 상품 금리와 계산 방식에 따라 달라져요.",
+    question:
+      "매달 저축하고 싶은 금액이 있나요?"
+  }
+];
+
+/* ============================
+   4. 금융 질문 분석
+============================ */
+
+function normalize(text){
+  return text
+    .toLowerCase()
+    .replace(/\s+/g," ")
+    .trim();
+}
+
+function analyzeQuestion(question){
+  const text = normalize(question);
+
+  let best = null;
+  let bestScore = 0;
+
+  KNOWLEDGE.forEach(topic=>{
+    let score = 0;
+
+    topic.keywords.forEach(keyword=>{
+      if(text.includes(keyword.toLowerCase())){
+        score += keyword.length>=4 ? 3 : 2;
+      }
+    });
+
+    if(score>bestScore){
+      bestScore = score;
+      best = topic;
+    }
+  });
+
+  return bestScore>0 ? best : null;
+}
+
+/* ============================
+   5. 금액 읽기와 맞춤형 설명
+============================ */
+
+function extractAmount(question){
+  const text = question.replace(/,/g,"");
+  const match = text.match(
+    /(\d+(?:\.\d+)?)\s*(억|만원|천원|만|천|원)?/
+  );
+
+  if(!match)return null;
+
+  const number = Number(match[1]);
+  const unit = match[2] || "";
+
+  let multiplier = 1;
+
+  if(unit==="억")multiplier=100000000;
+  else if(unit==="만원"||unit==="만")multiplier=10000;
+  else if(unit==="천원"||unit==="천")multiplier=1000;
+
+  const amount = number*multiplier;
+
+  if(!Number.isSafeInteger(amount) || amount<=0){
+    return null;
+  }
+
+  return amount;
+}
+
+function personalize(topic,question){
+  const amount=extractAmount(question);
+
+  if(!amount)return "";
+
+  if(topic.id==="saving"||topic.id==="deposit"){
+    const tenPercent=Math.round(amount*.1);
+    const twentyPercent=Math.round(amount*.2);
+
+    return (
+      `\n\n💙 입력한 금액 ${money(amount)}을 `+
+      `한 달 용돈이나 수입으로 가정하면:\n`+
+      `• 10% 저축: ${money(tenPercent)}\n`+
+      `• 20% 저축: ${money(twentyPercent)}\n`+
+      `실제로는 필수 지출을 먼저 고려해 `+
+      `무리 없는 금액을 정해 보세요.`
+    );
+  }
+
+  if(topic.id==="budget"||topic.id==="spending"){
+    return (
+      `\n\n📊 입력한 ${money(amount)}이 한 달 예산이라면, `+
+      `그 안에서 필수 지출과 저축할 금액을 먼저 구분하고 `+
+      `남은 돈을 선택적 소비에 사용하는 방법을 생각해 보세요.`
+    );
+  }
+
+  return "";
+}
+
+function getResponse(question){
+  const topic=analyzeQuestion(question);
+
+  if(!topic){
+    return {
+      title:"💙 조금 더 구체적으로 알려주세요",
+      explanation:
+        "질문을 확인했지만 어떤 금융 주제인지 정확하게 구분하지 못했어요.\n\n"+
+        "저축, 소비, 가계부, 신용점수, 대출, 보험, 투자, 금융사기처럼 "+
+        "관심 있는 금융 주제와 함께 고민을 적어 주세요.",
+      steps:[
+        "어떤 금융 문제가 궁금한지 적어 주세요.",
+        "상황이나 금액을 함께 적으면 더 구체적으로 설명할 수 있어요.",
+        "아래 추천 질문을 눌러 시작해도 좋아요."
+      ],
+      example:"",
+      question:"예: 매달 용돈 5만 원을 받는데 저축을 어떻게 시작하나요?"
+    };
+  }
+
+  return {
+    ...topic,
+    explanation:
+      topic.explanation + personalize(topic,question)
+  };
+}
+
+/* ============================
+   6. 채팅 기록
+============================ */
+
+function welcomeMessage(){
+  return {
+    role:"bot",
+    title:"💙 안녕하세요! 쉬운 금융 상담소예요.",
+    explanation:
+      "저축은 어떻게 시작할까요?\n"+
+      "신용점수는 무엇일까요?\n"+
+      "보험과 투자는 왜 필요할까요?\n\n"+
+      "금융에 대한 고민을 편하게 질문해 주세요.",
+    steps:[
+      "궁금한 내용을 입력하세요.",
+      "쉬운 설명과 실천 방법을 확인하세요.",
+      "필요하면 다른 질문을 이어서 해 보세요."
+    ],
+    example:"",
+    question:"무엇부터 알아볼까요?"
+  };
+}
+
+function loadHistory(){
+  try{
+    const raw=JSON.parse(
+      localStorage.getItem(HISTORY_KEY)
+    );
+
+    if(!Array.isArray(raw))return [welcomeMessage()];
+
+    const valid=raw.filter(item=>
+      item &&
+      ["user","bot"].includes(item.role) &&
+      typeof item.explanation==="string" &&
+      Array.isArray(item.steps) &&
+      item.steps.every(x=>typeof x==="string") &&
+      typeof item.title==="string"
+    );
+
+    return valid.length ? valid.slice(-40) : [welcomeMessage()];
+  }catch{
+    return [welcomeMessage()];
+  }
+}
+
+let history=loadHistory();
+
+function saveHistory(){
+  try{
+    localStorage.setItem(
+      HISTORY_KEY,
+      JSON.stringify(history.slice(-40))
+    );
+  }catch{
+    toast("대화 기록을 저장하지 못했어요.");
+  }
+}
+
+/* ============================
+   7. 채팅 화면 만들기
+============================ */
+
+function addText(parent,text,className=""){
+  const div=document.createElement("div");
+  if(className)div.className=className;
+  div.textContent=text;
+  parent.appendChild(div);
+  return div;
+}
+
+function renderMessages(){
+  const box=$("chatMessages");
+  box.replaceChildren();
+
+  history.forEach(item=>{
+    const row=document.createElement("div");
+    row.className="message-row "+item.role;
+
+    const bubble=document.createElement("div");
+    bubble.className="message";
+
+    if(item.role==="user"){
+      bubble.textContent=item.explanation;
+    }else{
+      if(item.title){
+        addText(bubble,item.title,"message-title");
+      }
+
+      addText(
+        bubble,
+        item.explanation,
+        "message-section"
+      );
+
+      if(item.steps.length){
+        addText(
+          bubble,
+          "\n✅ 이렇게 해 보세요",
+          "message-title"
+        );
+
+        item.steps.forEach((step,i)=>{
+          addText(bubble,`${i+1}. ${step}`);
+        });
+      }
+
+      if(item.example){
+        addText(
+          bubble,
+          "\n💡 쉬운 예시\n"+item.example,
+          "message-section"
+        );
+      }
+
+      if(item.question){
+        addText(
+          bubble,
+          "\n💬 "+item.question,
+          "message-section"
+        );
+      }
+    }
+
+    if(item.role==="bot"){
+      const avatar=document.createElement("div");
+      avatar.className="avatar";
+      avatar.textContent="💙";
+      row.append(avatar,bubble);
+    }else{
+      row.appendChild(bubble);
+    }
+
+    box.appendChild(row);
+  });
+
+  box.scrollTop=box.scrollHeight;
+}
+
+/* ============================
+   8. 질문 보내기
+============================ */
+
+function sendQuestion(value=null){
+  const input=$("questionInput");
+  const question=(
+    value===null ? input.value : value
+  ).trim();
+
+  if(!question){
+    toast("궁금한 금융 질문을 입력해 주세요.");
+    input.focus();
+    return;
+  }
+
+  if(question.length>500){
+    toast("질문은 500자 이내로 입력해 주세요.");
+    return;
+  }
+
+  history.push({
+    role:"user",
+    title:"",
+    explanation:question,
+    steps:[],
+    example:"",
+    question:""
+  });
+
+  const response=getResponse(question);
+
+  history.push({
+    role:"bot",
+    ...response
+  });
+
+  if(history.length>40){
+    history=history.slice(-40);
+  }
+
+  input.value="";
+  saveHistory();
+  renderMessages();
+}
+
+$("sendBtn").onclick=()=>{
+  sendQuestion();
+};
+
+$("questionInput").addEventListener("keydown",e=>{
+  if(e.key==="Enter" && (e.ctrlKey||e.metaKey)){
+    e.preventDefault();
+    sendQuestion();
+  }
+});
+
+document.querySelectorAll("[data-question]").forEach(button=>{
+  button.onclick=()=>{
+    sendQuestion(button.dataset.question);
+  };
+});
+
+$("clearChatBtn").onclick=()=>{
+  if(!confirm("대화 내용을 모두 지울까요?"))return;
+
+  history=[welcomeMessage()];
+  saveHistory();
+  renderMessages();
+
+  toast("대화 내용을 초기화했어요.");
+};
+
+/* ============================
+   9. 금융 공부 주제
+============================ */
+
+const TOPIC_ICONS={
+  saving:"💰",
+  spending:"🛍️",
+  budget:"📊",
+  credit:"💳",
+  loan:"🏦",
+  insurance:"🛡️",
+  investing:"📈",
+  scam:"🚨",
+  deposit:"🏧"
+};
+
+const TOPIC_QUESTIONS={
+  saving:"용돈을 저축하는 좋은 방법이 궁금해요.",
+  spending:"충동구매를 줄이는 방법을 알려주세요.",
+  budget:"한 달 예산과 가계부를 어떻게 관리하나요?",
+  credit:"신용점수란 무엇인가요?",
+  loan:"대출과 이자가 무엇인가요?",
+  insurance:"보험의 종류와 보장 범위를 알려주세요.",
+  investing:"투자를 시작하기 전에 무엇을 알아야 하나요?",
+  scam:"금융사기를 예방하는 방법을 알려주세요.",
+  deposit:"예금과 적금의 차이는 무엇인가요?"
+};
+
+function renderTopics(){
+  const box=$("topicGrid");
+  box.replaceChildren();
+
+  KNOWLEDGE.forEach(topic=>{
+    const button=document.createElement("button");
+    button.className="topic-card";
+
+    const icon=document.createElement("div");
+    icon.className="topic-icon";
+    icon.textContent=TOPIC_ICONS[topic.id];
+
+    const name=document.createElement("strong");
+    name.textContent=topic.title.replace(/^.{2}/u,"").trim();
+
+    const description=document.createElement("p");
+    description.textContent=
+      topic.explanation.split("\n")[0];
+
+    button.append(icon,name,description);
+
+    button.onclick=()=>{
+      showPage("chatPage");
+      sendQuestion(TOPIC_QUESTIONS[topic.id]);
+    };
+
+    box.appendChild(button);
+  });
+}
+
+/* ============================
+   10. 저축 목표 계산기
+============================ */
+
+function nonNegativeInteger(value){
+  if(String(value).trim()==="")return null;
+
+  const n=Number(value);
+
+  if(!Number.isSafeInteger(n) || n<0)return null;
+
+  return n;
+}
+
+$("calculateBtn").onclick=()=>{
+  const goal=nonNegativeInteger(
+    $("goalAmount").value
+  );
+
+  const current=nonNegativeInteger(
+    $("currentAmount").value
+  );
+
+  const months=nonNegativeInteger(
+    $("months").value
+  );
+
+  const income=nonNegativeInteger(
+    $("monthlyIncome").value
+  );
+
+  if(goal===null || goal<=0){
+    toast("목표 금액을 1원 이상의 정수로 입력해 주세요.");
+    return;
+  }
+
+  if(current===null){
+    toast("이미 모은 돈을 올바르게 입력해 주세요.");
+    return;
+  }
+
+  if(months===null || months<1 || months>600){
+    toast("저축 기간은 1~600개월로 입력해 주세요.");
+    return;
+  }
+
+  if(income===null){
+    toast("한 달 수입을 0원 이상의 정수로 입력해 주세요.");
+    return;
+  }
+
+  const remaining=Math.max(0,goal-current);
+  const monthly=Math.ceil(remaining/months);
+
+  if(!Number.isSafeInteger(monthly)){
+    toast("금액이 너무 커요.");
+    return;
+  }
+
+  const percent=Math.min(100,current/goal*100);
+
+  $("requiredSaving").textContent=money(monthly);
+
+  $("savingFill").style.width=percent+"%";
+
+  let advice=
+    `목표 ${money(goal)} 중 `+
+    `${money(current)}을 이미 모았어요.\n\n`+
+    `남은 금액은 ${money(remaining)}이고, `+
+    `${months}개월 동안 매달 ${money(monthly)}씩 `+
+    `저축하면 목표에 도달할 수 있어요.`;
+
+  if(remaining===0){
+    advice+="\n\n🎉 이미 저축 목표를 달성했어요!";
+  }else if(income===0){
+    advice+=
+      "\n\n💡 현재 수입이 없다면 먼저 저축 가능한 자금을 마련해야 해요.";
+  }else if(monthly>income){
+    advice+=
+      "\n\n⚠️ 매달 필요한 저축액이 월수입보다 커요. "+
+      "목표 금액을 낮추거나 저축 기간을 늘려 보세요.";
+  }else{
+    const share=(monthly/income*100).toFixed(1);
+
+    advice+=
+      `\n\n💙 이 금액은 입력한 월수입의 `+
+      `${share}%예요. 생활에 필요한 지출도 고려해 보세요.`;
+  }
+
+  $("calculationAdvice").textContent=advice;
+  $("calculationAdvice").style.whiteSpace="pre-line";
+
+  $("calculationResult").classList.remove("hidden");
+};
+
+/* ============================
+   11. 초기 실행
+============================ */
+
+renderMessages();
+renderTopics();
+
+</script>
+</body>
+</html>
